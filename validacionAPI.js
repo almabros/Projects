@@ -105,7 +105,7 @@ function ObtenerOAUth() {
     var retorno = false;
 
     $.ajax({
-        url: "https://apideveloper.santander-homo.cl/sancl/privado/oauth/token",
+        url: "URIAPI",
         type: "POST",
         async: false,
         contentType: "application/x-www-form-urlencoded",
@@ -142,15 +142,15 @@ function ObtenerOAUth() {
 function lanzarLogin() {
     var retorno = false;
     var inputLogin = {
-        usuario: "00125848591",
-        clave: "temporal01",
+        usuario: _RUTEJECUTIVO,
+        clave: _CLAVERUTEJECUTIVO,
         canal: "70",
-        app: "BPU"
+        app: _APP
     };
     //var _access_token;
 
     $.ajax({
-        url: "https://apideveloper.santander-homo.cl/sancl/privado/funcionarios/login",
+        url: "URIAPI",
         type: "POST",
         async: false,
         contentType: "application/json; charset=utf-8",
@@ -187,7 +187,7 @@ function lanzarPerfilamiento() {
     var retorno = false;
 
     $.ajax({
-        url: "https://apideveloper.santander-homo.cl/sancl/privado/perfiles/00125848591",
+        url: "URIAPI",
         type: "GET",
         async: false,
         beforeSend: function (xhr) {
@@ -223,7 +223,7 @@ function consultaCliente() {
     var retorno = false;
 
     $.ajax({
-        url: "https://apideveloper.santander-homo.cl/sancl/privado/clientes/00125848591",
+        url: "URIAPI",
         type: "GET",
         async: false,
         data: {
@@ -267,11 +267,11 @@ function consultaCliente() {
 function capturaCliente() {
     var retorno = false;
     var inputLogin = {
-        ProcesoNegocio: "OPUC",
+        ProcesoNegocio: _PROCESONEGOCIO,
         Centro: _CENTRO,
         CanalLogico: "070",
         UsuarioEjecutivo: _USUARIO,
-        UsuarioGenerico: "GOBDIGY",
+        UsuarioGenerico: _USUARIOGENERICO,
         RutCliente: _RUTCLIENTE,
         TipoContratacion: "B",
         TipoCompraDatosExternos: "N",
@@ -279,54 +279,7 @@ function capturaCliente() {
     };
 
     $.ajax({
-        url: "https://apideveloper.santander-homo.cl/sancl/privado/clientes/clientes/00125848591",
-        type: "POST",
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(inputLogin),
-        dataType: "json",
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("Authorization", "Bearer " + _ACCESSTOKEN)
-        },
-        success: function (result) {
-            var salida = JSON.stringify(result, null, 2);
-
-            $('#divCapturaCliente').addClass('border-left-success')
-            document.getElementById('divCapturaCliente').setAttribute('title', salida);
-
-            retorno = true;
-        },
-        error: function (jqXHR, exception) {
-            var error = jqXHR.responseJSON.httpCode + ' ' +
-                jqXHR.responseJSON.httpMessage + ' ' +
-                jqXHR.responseJSON.moreInformation;
-
-            $('#divCapturaCliente').addClass('border-left-danger')
-            document.getElementById('divCapturaCliente').setAttribute('title', error);
-
-            retorno = false;
-        },
-    });
-
-    return retorno;
-}
-
-function MantenimientoClienteGuardar() {
-    var retorno = false;
-    var inputLogin = {
-        ProcesoNegocio: "OPUC",
-        Centro: _CENTRO,
-        CanalLogico: "070",
-        UsuarioEjecutivo: _USUARIO,
-        UsuarioGenerico: "GOBDIGY",
-        RutCliente: _RUTCLIENTE,
-        TipoContratacion: "B",
-        TipoCompraDatosExternos: "N",
-        TokenHuella: ""
-    };
-
-    $.ajax({
-        url: "https://apideveloper.santander-homo.cl/sancl/privado/clientes/clientes/00125848591",
+        url: URIAPI,
         type: "POST",
         async: false,
         contentType: "application/json; charset=utf-8",
